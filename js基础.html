@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input id="text1" type="text">
+    <input id="btn1" type="button" value="创建li">
+    <ul id="ul1"></ul>
+    <script>
+        // 功能尽量用原生js写，有利于发展，框架虽然更方便，但是如果哪天这个框架被弃用了，问题就暴露了
+        // 写功能时要尽可能多的考虑自己的代码的缺陷、复用性、代码是否冗余，尽可能的解决能想到的不足
+
+        // ==和===
+        /*var a=5;
+        var b='5'
+        alert(a==b)  // true   ==：先转换类型再比较
+        alert(a===b)  // false    ===：全等于*/
+
+        // 闭包：子函数可以使用父函数的局部变量
+        /*function aaa(){ //这就是一个闭包
+            var a=555;
+            function bbb(){
+                alert(a)
+            }
+        }*/
+        
+        // 命名规范：类型前缀+首字母大写 如:命名一个对象 oUsername=document.getElementById("")
+
+        // json的循环：for in
+        /*var json={a:1,b:2,c:'sss'}
+        for(var i in json){
+            console.log("第"+i+"个数据："+json[i])
+        }*/
+
+        // 函数返回值
+        // function show(){
+        //     return 12; //把return的东西返回给上一层使用
+        // }
+        // var showvalue=show()
+        // console.log(showvalue)
+
+        //arguments：不定参
+        // function sum(){
+        //     var s=0;
+        //     for(var i=0;i<arguments.length;i++){
+        //         s+=arguments[i]
+        //     }
+        //     return s;
+        // }
+        // console.log(sum(3,4,5));
+
+        // 创建DOM(用法:上传文件等)
+        var oBtn1=document.getElementById('btn1');
+        var oUl1=document.getElementById('ul1');
+        var oText1=document.getElementById('text1');
+        oBtn1.onclick=function(){
+            var oLi=document.createElement('li');
+            var aLi=document.getElementsByTagName('li')
+            oLi.innerHTML=oText1.value;
+            
+            //添加到末尾
+            // oUl1.appendChild(oLi); 
+            
+            //添加到开头 
+            // 父级.insertBefore(需要插入的东西，从哪儿插入)
+            if(aLi.length>0){
+                oUl1.insertBefore(oLi,aLi[0]);
+            }
+            else{
+                oUl1.appendChild(oLi); 
+            }
+        }
+        // 插入元素（例子：表格调整位子）
+        // 删除
+    </script>
+</body>
+</html>
