@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉式导航栏</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        .body{
+            height: 100%;
+        }
+        .navigation{
+            width: 200px;
+            height: 100%;
+            margin: 0 auto;
+            background-color: gray;
+        }
+        .nav_ul{
+            list-style: none;
+            text-align: center;
+        }
+        .nav_list{
+            background-color: red;
+        }
+        .nav_list h2{
+            position: relative;
+            border-bottom: 5px solid gray;
+        }
+        .nav_i{   /* 画三角形 */
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 10px solid transparent; /* transparent：颜色透明 */
+            border-left-color: #fff;
+            transition: 1s;
+            transform-origin: 1px 8px; /*旋转基点*/
+        }
+        .nav_secul{
+            overflow: hidden;
+            list-style: none;
+            transition: all 1s;
+        }
+        .nav_seclist{
+            height: 30px;
+            border-bottom: 5px solid gray;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <nav class="navigation">
+            <ul class="nav_ul">
+                <li class="nav_list">
+                    <h2>
+                        <i class="nav_i"></i>
+                        1级导航
+                    </h2>
+                    <ul class="nav_secul">
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                    </ul>
+                </li>
+                <li class="nav_list">
+                    <h2>
+                        <i class="nav_i"></i>
+                        1级导航
+                    </h2>
+                    <ul class="nav_secul">
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                    </ul>
+                </li>
+                <li class="nav_list">
+                    <h2>
+                        <i class="nav_i"></i>
+                        1级导航
+                    </h2>
+                    <ul class="nav_secul">
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                    </ul>
+                </li>
+                <li class="nav_list">
+                    <h2>
+                        <i class="nav_i"></i>
+                        1级导航
+                    </h2>
+                    <ul class="nav_secul">
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                        <li class="nav_seclist">2级导航</li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <script>
+        (function(){
+            var oNavList=document.querySelectorAll('.nav_list h2'),
+            oNav_secul=document.getElementsByClassName('nav_secul'),
+            onav_i=document.querySelectorAll('.nav_list i'),
+            lastIndex=0 //保存上一次的下标
+            // console.log(oNavList)
+            for(var i=0;i<oNavList.length;i++){
+                oNavList[i].index=i;  //自定义属性保存下标
+                oNavList[i].isClick=false; //设置是否被点击过：用于实现再次点击时收缩回去
+                
+                //把每一个二级菜单的高度都保存一下，方便以后增加删除操作
+                oNavList[i].initheight=oNav_secul[i].clientHeight; 
+
+                oNav_secul[i].style.height='0';
+                oNavList[i].onclick=function(){
+                    // 清除上一次的样式（onclick下一个dom时）
+                    oNav_secul[lastIndex].style.height='0';
+                    onav_i[lastIndex].style.transform='rotate(0deg)';
+                    if(this.isClick){//判断是否被点击过
+                        oNavList[this.index].isClick=false;
+                    }
+                    else{
+                        // 设置当前onclick的dom的样式
+                        oNav_secul[this.index].style.height=this.initheight+'px';
+                        onav_i[this.index].style.transform='rotate(90deg)';
+                        oNavList[lastIndex].isClick=false;
+                        lastIndex=this.index;
+                        oNavList[this.index].isClick=true;
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

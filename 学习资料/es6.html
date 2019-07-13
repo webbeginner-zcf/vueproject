@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es6语法</title>
+</head>
+<body>
+    <script>
+        // 变量声明变化
+        var a=10;  //旧
+        let b=10;  //新
+        const PI=3.14;  //常量
+
+        // 数组的结构赋值 
+        let a = 1;let b = 2;let c = 3;  //旧
+        let [a, b, c] = [1, 2, 3];  //新
+        // 解构赋值允许指定默认值
+        let [x, y = 'b'] = ['a']; // x='a', y='b'
+        let [x, y = 'b'] = ['a', undefined]; // x='a', y='b'
+        let [x = 1] = [undefined];
+        
+        //字符串添遍历器接口   这个遍历器最大的优点是可以识别大于0xFFFF的码点
+        for (let codePoint of 'foo') {
+            console.log(codePoint)
+            }
+            // "f"
+            // "o"
+            // "o"
+
+        //反引号
+        function authorize(user, action) {
+            if (!user.hasPrivilege(action)) {
+                throw new Error(
+                    // 传统写法为
+                    // 'User '
+                    // + user.name
+                    // + ' is not authorized to do '
+                    // + action
+                    // + '.'
+                    `User ${user.name} is not authorized to do ${action}.`
+                );
+            }
+        }
+
+        //箭头函数   *箭头函数会使得this从“动态”变成“静态”
+        var sum = (num1, num2) => num1 + num2;
+        // 等同于
+        var sum = function(num1, num2) {
+            return num1 + num2;
+        };
+
+        // ES6模块   export default:为模块指定默认输出。
+        import { stat, exists, readFile } from 'fs';
+
+        //es6编程风格
+        //（1）let 取代 var,常量还有const
+        //静态字符串一律使用单引号或反引号，不使用双引号。动态字符串使用反引号
+        //使用数组成员对变量赋值时，优先使用解构赋值。
+        //单行定义的对象，最后一个成员不以逗号结尾。多行定义的对象，最后一个成员以逗号结尾。
+        const a = { k1: v1, k2: v2 };
+        const b = {
+            k1: v1,
+            k2: v2,
+        };
+        // 立即执行函数可以写成箭头函数的形式
+        // import取代require
+    </script>
+</body>
+</html>
