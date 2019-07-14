@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #showdiv{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            display: none;
+        }
+        #movediv{
+            width: 200px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
+    <p>创建DOM（用于上传文件）</p>
     <input id="text1" type="text">
-    <input id="btn1" type="button" value="创建li">
+    <input id="btn1" type="button" value="创建li"><span>ctrl+回车可直接提交</span>
     <ul id="ul1"></ul>
+    <hr>
+    <p>事件冒泡</p>
+    <input id="showbtn" type="button" value="出现">
+    <div id="showdiv"></div>
+    <hr>
+    <div id="movediv">这是键盘可控制移动的div</div>
     <script>
         // 功能尽量用原生js写，有利于发展，框架虽然更方便，但是如果哪天这个框架被弃用了，问题就暴露了
         // 写功能时要尽可能多的考虑自己的代码的缺陷、复用性、代码是否冗余，尽可能的解决能想到的不足
@@ -74,8 +95,45 @@
                 oUl1.appendChild(oLi); 
             }
         }
+        oText1.onkeydown=function(ev){  //ctrl+回车可直接提交
+            var oEvent=ev||event
+            if(oEvent.keyCode==13 && oEvent.ctrlKey){
+                oBtn1.onclick()
+            }
+
+        }
         // 插入元素（例子：表格调整位子）
         // 删除
+
+        // document:代表整个页面
+
+        // 兼容：var oEvent=ev||event   ||链接
+
+        //事件冒泡
+        var showbtn=document.getElementById('showbtn')
+        var showdiv=document.getElementById('showdiv')
+        showbtn.onclick=function(ev){
+            var oEvent=ev||event
+            showdiv.style.display="block"
+            // alert('btn onclick')
+            oEvent.cancelBubble=true //阻止事件冒泡
+        }
+        document.onclick=function(){
+            showdiv.style.display="none"
+            // alert('document onclik')
+        }
+
+        //键盘事件
+        document.onkeydown=function(ev){
+            var oEvent=ev||event
+            var omovediv=document.getElementById('movediv')
+            if(oEvent.keyCode==37){
+                omovediv.style.left=omovediv.offsetLeft-10+'px'
+            }
+            else if(oEvent.keyCode==39){
+                omovediv.style.left=omovediv.offsetLeft+10+'px'
+            }
+        }
     </script>
 </body>
 </html>
